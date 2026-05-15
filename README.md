@@ -11,3 +11,7 @@ sudo docker run -it --gpus all \
   -v $(pwd)/output:/workspace/output \
   yolov8-trainer
 ```
+
+#Next Steps:
+
+[onnx to hef](https://github.com/S1eeee/onnx-to-hef-yolov8s/)
