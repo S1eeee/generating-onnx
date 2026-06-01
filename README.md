@@ -1,6 +1,14 @@
 # generating-onnx-for-yolov8s (for yolov8s)
 This repository is meant to be a precursor to my  onnx-to-hef-yolov8s repository. It trains an onnx model straight your training data, made for yolov8s
 
+## Video
+
+### This is a video that I made, might be useful. It'll be updated in the future
+
+```
+https://www.youtube.com/watch?v=tDq6RIIhIlc
+```
+
 ```
 docker build -t yolov8-trainer .
 ```
