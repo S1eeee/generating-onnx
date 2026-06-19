@@ -35,7 +35,7 @@ def detect_classes(base_path):
     2. classes.txt
     3. Manual scan of label files
     """
-    # 1. Try existing data.yaml (Roboflow style)
+    # Try data.yaml
     roboflow_yaml = os.path.join(base_path, 'data.yaml')
     if os.path.exists(roboflow_yaml):
         try:
@@ -49,15 +49,15 @@ def detect_classes(base_path):
         except Exception as e:
             print(f"Warning: Could not parse existing data.yaml: {e}")
 
-    # 2. Try classes.txt
+    # Try classes.txt
     txt_path = os.path.join(base_path, 'train', 'labels', 'classes.txt')
     if os.path.exists(txt_path):
         with open(txt_path, 'r') as f:
             names = [line.strip() for line in f.readlines() if line.strip()]
             return {i: name for i, name in enumerate(names)}
 
-    # 3. Fallback: Scan label IDs
-    print("⚠️ No metadata found. Scanning labels to count classes...")
+    # Fallback
+    print("No metadata found. Scanning labels to count classes...")
     label_dir = os.path.join(base_path, 'train', 'labels')
     max_idx = 0
     if os.path.exists(label_dir):
@@ -113,16 +113,14 @@ def prepare_final_yaml(base_path):
         yaml.dump(config, f)
     return yaml_path
 
-# --- START ---
+
 DATA_DIR = "/workspace/dataset"
 
-# 1. Manage folder splits
 smart_split_logic(DATA_DIR)
 
-# 2. Build the YAML based on detected classes
 final_yaml = prepare_final_yaml(DATA_DIR)
 
-# 3. Train
+# Train Parameters. Update this (will be easier to change in the future)
 model = YOLO('yolov8s.pt')
 model.train(
     data=final_yaml,
@@ -136,6 +134,5 @@ model.train(
     exist_ok=True
 )
 
-# 4. Export
 print("Exporting ONNX...")
 model.export(format='onnx', imgsz=640, opset=12, dynamic=False)
