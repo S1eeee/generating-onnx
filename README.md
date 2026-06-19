@@ -21,6 +21,12 @@ https://www.youtube.com/watch?v=tDq6RIIhIlc
 
 # Usage
 
+##Update Parameters
+
+To update train parameters look at the python script and scroll all the way down. Updating parameters will be easier in the future.
+
+Then just run the following commands; self explanatory what they do
+
 ```
 docker build -t yolov8-trainer .
 ```
@@ -31,6 +37,8 @@ sudo docker run -it --gpus all \
   -v $(pwd)/output:/workspace/output \
   yolov8-trainer
 ```
+
+--shm-size was necessary when I was initially working on this, due to the specs of the gpu I had to use at the time. You can probably remove that flag.
 
 # Next Steps:
 
